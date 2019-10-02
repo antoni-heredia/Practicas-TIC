@@ -1,4 +1,4 @@
-int TAU = 100;
+int TAU = 10;
 int pin = 8;
 void setup() {
   // put your setup code here, to run once:

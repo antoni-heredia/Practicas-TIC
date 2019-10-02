@@ -1,6 +1,9 @@
-int TAU = 100;
+int TAU = 10;
 int n = 2;
 int pin = 7;
+int cantRecibidos = 0 ;
+char cadena [11];
+
 void setup() {
   // put your setup code here, to run once:
     pinMode(pin, INPUT);
@@ -8,16 +11,18 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  String cadena = "";
+
   int bitRecibido = recvBit(pin);
-  if(bitRecibido != -1){
-    cadena += bitRecibido;
-    while(bitRecibido =! -1){
-      bitRecibido = recvBit(pin);
-      cadena+=char(bitRecibido);
-    }
+  while(bitRecibido != -1){
+    cadena[cantRecibidos] = bitRecibido + 48;
+    bitRecibido = recvBit(pin);
+    cantRecibidos += 1;
+  }
+  if(cantRecibidos >= 10){
+    cadena[11] = '\0';
+    Serial.print("La cadena es: ");
     Serial.println(cadena);
+    cantRecibidos = 0;
   }
 }
 
