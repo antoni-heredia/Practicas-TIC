@@ -1,0 +1,126 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[spanish,es-tabla]{babel}
+\usepackage[a4paper,bindingoffset=0.1in,%
+left=0.75in,right=0.75in,top=1in,bottom=1in,%
+footskip=.2in]{geometry}
+\usepackage[utf8]{inputenc} % Escribir con acentos, ~n...
+\usepackage{eurosym} % s´ımbolo del euro
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+\usepackage{listings}             % Incluye el paquete listing
+\usepackage[cache=false]{minted}
+\usepackage{graphics,graphicx, float} %para incluir imágenes y colocarlas
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=black
+}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{diagbox}
+\usepackage{amsmath}
+\usepackage{verbatim}
+\decimalpoint
+\begin{document}
+	
+	\title{Teoría de la información y la codificación}
+	
+	\maketitle
+	\horrule{2pt}
+	\section{Ejercicio 1}
+	Sea una fuente S con un alfabeto $A=\{a, b, c, d, e, f\}$, con probabilidades de envío de cada mensaje $p(a)=0.3$, $p(b)=0.25$, $p(c)=0.2$ , $p(d)=0.1$, $p(e)= 0.1$, $p(f)=0.05$, que se desea codificar.
+	\begin{enumerate}
+		\item  Explique qué es la esperanza de información de la fuente y calcule la esperanza de información de la fuente S.\\ \textbf{Respuesta:}\\
+		Podemos definir esperanza de la información de una fuente o entropía a la cantidad de información promedio que contienen los símbolos usados. Y viene expresada por la siguiente formula:
+		$$
+		\begin{aligned} E\{I(S)\} &=p\left(S=s_{1}\right)^{*} I\left(S=s_{1}\right)+p\left(S=s_{2}\right)^{*} I\left(S=s_{2}\right)+\ldots+p\left(S=s_{n}\right)^{*} I\left(S=s_{n}\right)=\\ &=\sum_{i=1}^{n} p\left(S=s_{i}\right)^{*} I\left(S=s_{i}\right) \end{aligned}
+		$$
+		La esperanza de información de la fuente S sera:
+		$$ \begin{aligned}E\{I(S)\} &= -\log_{6}{0.3}-\log_{6}{0.25}-\log_{6}{0.2}-\log_{6}{0.1}-\log_{6}{0.1}-\log_{6}{0.05}\\&=-\log_{6}{0.0000075}=6.58604\end{aligned}
+$$
+	\item  Explique qué es un código descifrable sin hacer uso de las explicaciones textuales de las diapositivas de clase. Ponga ejemplos de códigos descifrables y códigos indescifrables,	justificando cada uno.\\ \textbf{Respuesta:}\\
+	
+	Un código descifrable es cuando existe para cualquier elemento del alfabeto de la fuente, una vez codificado con  algún método/algoritmo/función, un único elemento del alfabeto del receptor. Y ademas existe algún método/algoritmo/función (que sera la inversa de la función de codificación) para volver a tener el elemento original de forma única. 
+	\\
+	\textsl{Ejemplo código descifrable:}
+	\\
+	$$
+	\begin{array}{c}{f: S \rightarrow C} \\ {X \in S, C \in C, X \rightarrow f(X)}		\\ S=\{a,b,...,z,\},A=\{0,1\},C=\{00000,00001,...,11100\}\\
+a\rightarrow f(a) = 00000\\
+b\rightarrow f(a) = 00001\\...\\
+z\rightarrow f(a) = 11100\\
+\end{array}
+	$$
+	Como podemos ver tenemos un código descifrable. Esto se debe a que nuestra función $f(x)$ es biyectiva. Esto es, como hemos explicado intuitivamente arriba, que para elemento de S existe un único elemento de C y viceversa, que para cada elemento de C existe un único elemento de S.	\\
+	\textsl{Ejemplo código indescifrable:}
+		$$
+	\begin{array}{c}{f: S \rightarrow C} \\ {X \in S, C \in C, X \rightarrow f(X)}		\\ S=\{a,b,...,z,\},A=\{0,1\},C=\{0,1,...,0\}\\
+	a\rightarrow f(a) = 0\\
+	b\rightarrow f(b) = 1\\...\\
+	z\rightarrow f(z) = 0\\
+	\end{array}
+	$$
+
+Como podemos ver este código es indescifrable ya que $f(x)$ no es inyectiva. Esto significa que para algún elemento de S hay mas de un elemento en C. Por ejemplo a la letra \textbf{a} y \textbf{z} les corresponde a los dos el \textbf{0}.
+\item Explique qué es un código uniforme, y diseñe un código ternario uniforme en el alfabeto B=\{0, 1, 2\}, con el mínimo número de longitud de palabra posible que permita codificar todos los símbolos del alfabeto de la fuente. Explique si el código es descifrable o no.\\
+\textbf{Respuesta:}\\
+Un codigo uniforme es aquel en el que todas las palabras de $A^{*}$ que existen en $C$ tienen la misma longitud. En definitiva que todos los elementos de C tengan el mismo numero de símbolos.\\
+\textsl{Código ternario uniforme no descifrable:}\\
+Si no nos importa si el código es descifrable o no, podemos realizar un código uniforme de longitud uno. Pero de esta manera la función no seria inyectiva y por lo tanto indescifrable. 
+		$$
+\begin{array}{c}{h: S \rightarrow C} \\ {X \in S, C \in C, X \rightarrow h(X)}		\\B=\{0,1,2\} A=\{a,b,c,d,e,f\},,C=\{0,1,2,0,1,2\}\\
+a\rightarrow h(a) = 0\\
+b\rightarrow h(b) = 1\\
+c\rightarrow h(c) = 2\\
+d\rightarrow h(d) = 0\\
+e\rightarrow h(e) = 1\\
+f\rightarrow h(f) = 2\\
+\end{array}
+$$
+\textsl{Código ternario uniforme descifrable:}\\
+El anterior tiene el mínimo numero de símbolos pero es indescifrable, para realizarlo descifrable debería ser el siguiente:
+		$$
+\begin{array}{c}{h: S \rightarrow C} \\ {X \in S, C \in C, X \rightarrow h(X)}		\\B=\{0,1,2\} A=\{a,b,c,d,e,f\},,C=\{00,01,02,10,11,12\}\\
+a\rightarrow h(a) = 00\\
+b\rightarrow h(b) = 01\\
+c\rightarrow h(c) = 02\\
+d\rightarrow h(d) = 10\\
+e\rightarrow h(e) = 11\\
+f\rightarrow h(f) = 12\\
+\end{array}
+$$
+Estamos usando el mínimo numero de longitud de palabra posible ya que si usáramos longitud 1 solo podríamos codificar 3 elementos y que el código fuera descifrable. En cambio con longitud dos podemos llegar a codificar $3^2=9$ símbolos del alfabeto de la fuente, aunque en este caso solo usemos seis.
+
+\item Diseñe un código binario en el alfabeto B={0,1}, instantáneo no uniforme, que codifique los 6 símbolos. Se valorará que el código sea óptimo (no exista otro código con una longitud de palabra promedio menor).
+\\
+\textbf{Respuesta:}\\
+		$$
+\begin{array}{c}{h: S \rightarrow C} \\ {X \in S, C \in C, X \rightarrow h(X)}		\\B=\{0,1\} A=\{a,b,c,d,e,f\},,C=\{0,100,101,110,1110,1111\}\\
+a\rightarrow h(a) = 0\\
+b\rightarrow h(b) = 100\\
+c\rightarrow h(c) = 101\\
+d\rightarrow h(d) = 110\\
+e\rightarrow h(e) = 1110\\
+f\rightarrow h(f) = 1111\\
+\end{array}
+$$
+Puede ser que exista un código instantáneo  mejor, pero no se me ocurre como realizarlo.  
+\item  Indique la diferencia entre código instantáneo y código de traducción única. Diseñe un código binario en el alfabeto B={0,1}, que sea de traducción única que no sea instantáneo, que codifique los 6 símbolos. Explique el motivo por el que es de traducción única, pero no instantáneo.\\
+\textbf{Respuesta:}\\
+Los códigos instantáneos son un subconjunto de los códigos de traducción única.  Cuando un código es instantáneo significa que ninguna palabra codificada coincide con el comienzo de otra. En cambio los códigos de traducción única son cuando para cualquier sucesión única de palabras de códigos a transmitir, corresponde una única sucesión de símbolos transmitidos. 
+		$$
+\begin{array}{c}{h: S \rightarrow C} \\ {X \in S, C \in C, X \rightarrow h(X)}		\\B=\{0,1\} A=\{a,b,c,d,e,f\},,C=\{1,101,1001,10001,100001,1000001\}\\
+a\rightarrow h(a) = 1\\
+b\rightarrow h(b) = 101\\
+c\rightarrow h(c) = 1001\\
+d\rightarrow h(d) = 10001\\
+e\rightarrow h(e) = 100001\\
+f\rightarrow h(f) = 1000001\\
+\end{array}
+$$
+El código como se puede ver es de tradición única ya que para cualquier sucesión de símbolos que recibamos existe una única sucesión de palabras posible y no es instantáneo ya que por ejemplo todas las palabras comienzan por la palabra \textbf{a} por ejemplo. 
+\end{enumerate}
+\end{document}
