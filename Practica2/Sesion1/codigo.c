@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <math.h>
+
+// Para compilar usar gcc codigo.c -lm
 typedef enum
 {
     false,
@@ -32,6 +35,10 @@ void  Ordenar(struct probabilidad *Nodos, int s)
             }
         }
     }
+}
+//Realizar logaritmo de base n
+float log_n(int base, float x) {
+    return (float)(log(x) / log(base));
 }
 int main(int argc, const char *argv[])
 {
@@ -83,12 +90,15 @@ int main(int argc, const char *argv[])
 
         //Codig para calcular la probabilidad
         float suma = 0;
+	float entropia = 0;
         //Una vez leidos todos los caracteres, calculo las probabilidades
         for (int x = 0; x < CANT_CAR; x++)
         {
             prob[x] = (float)apariciones[x] / numeroTotalSimbolos; //calculo la probabilidad
-            //printf("probabilidad %c es de %f\n", alfabeto[x], prob[x]);
+            printf("probabilidad %c es de %f\n", alfabeto[x], prob[x]);
+	    entropia += (-prob[x])*log_n(2,prob[x]);
         }
+    	printf("Entropia %f: \n", entropia);
     }
     fclose(archivo);
 

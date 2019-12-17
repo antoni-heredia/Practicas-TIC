@@ -1,0 +1,99 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[spanish,es-tabla]{babel}
+\usepackage[a4paper,bindingoffset=0.1in,%
+left=0.75in,right=0.75in,top=1in,bottom=1in,%
+footskip=.2in]{geometry}
+\usepackage[utf8]{inputenc} % Escribir con acentos, ~n...
+\usepackage{eurosym} % s´ımbolo del euro
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+\usepackage{listings}             % Incluye el paquete listing
+\usepackage[cache=false]{minted}
+\usepackage{graphics,graphicx, float} %para incluir imágenes y colocarlas
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=black
+}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{diagbox}
+\usepackage{amsmath}
+\usepackage{verbatim}
+\decimalpoint
+\begin{document}
+	
+	\title{Teoría de la información y la codificación}
+	
+	\maketitle
+	\horrule{2pt}
+	\section{Ejercicio 1}{Explique el algoritmo de Shannon-Fano para codificación,adaptándolo a códigos ternarios.}
+	\begin{enumerate}
+		\item Ordenamos los mensajes $\{m_i\}$ en orden decreciente de probabilidades $\{p_i\}$.Llamaremos $M'$ al conjunto de mensajes ordenado.
+		\item Escoger dos puntos $k_1$ y $k_2$ de $M'$ tal que divida a $M'$ en tres partes equiprobables denominadas $M'_1$,$M'_2$ y $M'_3$.
+		\item Asignar $a_1$ a $M'_1$, $a_2$ a $M'_2$ y $a_3$ a $M'_3$.
+		\item Volver a realizar la operación desde el punto 2 sobre los subconjuntos generados $M'_1$, $M'_2$ y $M'_3$ hasta que el número de símbolos en cada subconjunto sea 1.
+	\end{enumerate}
+	\section{Ejercicio 2}{Sea una fuente con un alfabeto de 15 símbolos, $\{a, b, c, d, e, f, g, h, i, j, k, l, m, n, o\}$ con probabilidades $(1/15, 1/15, 1/15, 1/10, 1/10, 1/10, 1/10, 1/10, 1/10, 1/30, 1/30, 1/30, 1/30, 1/30, 1/30)$, que se desea codificar en un código ternario con el alfabeto ${0, 1, 2}$. Explique cómo aplicar el algoritmo de Shannon-Fano a este caso, y dibuje el árbol de codificación. }
+	\begin{enumerate}
+		\item 1. Ordenamos los mensajes en orden decreciente de su probabilidad
+		\\$ M’=\{d,e,f,g,h,i,a,b,c,j,k,l,m,n,o\}$
+		\item Separamos en tres conjuntos equiprobables\\
+		\\$ M’_1=\{d,e,f,g,h,i,a,b\}$
+		\\$ M’_2=\{c,j,k,l\}$
+		\\$ M’_3=\{m,n,o\}$
+		\item Asignamos:
+		$a_1 = M'_1$, $a_2=M'_2$ y $a_3=M'_3$.
+		\item Iteraremos ahora sobre $M’_1=\{d,e,f,g,h,i,a,b\}$.
+		 \begin{enumerate}
+		 	\item $M'_1$ en tres conjuntos equiprobables.
+		 	\item Estos conjuntos serán:
+		 	$M'_{11} = \{d,e,f\} $
+		 	$M'_{12} = \{g,h,i\} $
+		 	$M'_{13} = \{a,b\}$		 	
+		 	\item Asignamos:
+		 			$a_1 = M'_{11}$, $a_2=M'_{12}$ y $a_3=M'_{13}$.
+		 	\item Iteramos sobre $M'_11$:
+		 	\begin{enumerate}
+				\item Dividimos  $M'_11$ en tres subconjuntos equiprobables.
+			 	$M'_{111} = \{d\} $
+				$M'_{112} = \{e\} $
+				$M'_{113} = \{f\}$
+				\item Asignamos:
+				$a_1 = M'_{111}$, $a_1=M'_{112}$ y $a_3=M'_{113}$.
+				\item Llegamos a un nodo hoja del arbol.
+		 	\end{enumerate}
+	 		\item Iteramos sobre $M'_12$:
+	 		\begin{enumerate}
+	 			\item Dividimos  $M'_12$ en tres subconjuntos equiprobables.
+	 			$M'_{121} = \{g\} $
+	 			$M'_{122} = \{h\} $
+	 			$M'_{123} = \{i\}$
+	 			\item Asignamos:
+	 			$a_1 = M'_{121}$, $a_1=M'_{122}$ y $a_3=M'_{123}$.
+	 			\item Llegamos a un nodo hoja del arbol.
+	 		\end{enumerate}
+ 			\item Iteramos sobre $M'_12$:
+ 		\begin{enumerate}
+ 			\item Dividimos  $M'_13$ en dos subconjuntos equiprobables.
+ 			$M'_{131} = \{a\} $
+ 			$M'_{132} = \{b\} $
+
+ 			\item Asignamos:
+ 			$a_1 = M'_{131}$ y $a_1=M'_{132}$ 
+ 			\item Llegamos a un nodo hoja del arbol.
+ 		\end{enumerate}
+		 \end{enumerate}
+		\item Iteraremos ahora sobre $M’_2=\{c,j,k,l\}$.
+		\begin{enumerate}
+			\item Dividimos en tres subconjuntos equiprobables.
+			$M'_{21} = \{c,j\} $
+			$M'_{22} = \{g,h,i\} $
+			$M'_{23} = \{a,b\}$		
+		\end{enumerate}
+		
+	\end{enumerate}
+\end{document}
