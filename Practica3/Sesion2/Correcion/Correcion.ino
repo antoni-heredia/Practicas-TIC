@@ -32,6 +32,7 @@ bool decodificar(const uint8_t codigo, bool pulsados[4])
     palabra[pos] = ((codigo & (1 << i)) > 0) ? 1 : 0 ;
     pos++;
   }
+  
   int *salida = new int[3];
   MultiplicaZ2(palabra, 7, valores, 7, 3, salida );
 

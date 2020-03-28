@@ -50,7 +50,7 @@ struct caracter characters[31] = {
   {3,   {1, 1, 1, 1, 0}}
 };
 M[5] = {
-  {0,1,1,1,1,1,0, 1,0,0,0,0}
+  {1,1,1,1,1,1,0, 1,0,0,0,0}
   {1,0,1,1,1,1,0, 0,1,0,0,0}
   {1,1,0,1,1,1,0, 0,0,1,0,0}
   {1,1,1,0,1,1,0, 0,0,0,1,0}
@@ -62,18 +62,56 @@ int * codifica(char letra) {
       return characters[i].codigo;
     }
   }
-}
 
 int * codificaLineal(int * palabra){
-  int * resultado = new int[12];
+  int * resultado[[12] = new int[12];
 
+  for (int c = 0; c < 12; c++) {
+    int suma = 0;
+    for (int f = 0; f < 5; f++){
+      suma = (suma + (palabra[f] * M[f][c]));
+    }
+    resultado[c] = suma % 2;
+  }
   return resultado;
 }
 uint16_t BytesToUint16(int * palabra){
-  uint16_t resultado;
+  uint16_t resultado = 0;
+
+  int cont = 11;
+  for (int f = 0; f < 12; f++){
+      resultado += palabra[f] *pow(10, cont);
+      cont--;
+  }
 
   return resultado;
 }
+int * Uint16ToBytes(uint16_t palabra){
+  int * resultado  = new int[12];
+  int cont = 11;
+  
+  for (int f = 0; f < 12; f++){
+      int i = palabra / pow(10, cont);
+      palabra = palabra - (i * pow(10, cont));
+      resultado[f] = i;
+  }
+
+  return resultado;
+}
+
+int * decodificaLineal(int * palabra){
+  int * resultado[[12] = new int[12];
+
+  for (int c = 0; c < 12; c++) {
+    int suma = 0;
+    for (int f = 0; f < 5; f++){
+      suma = (suma + (palabra[f] * M[f][c]));
+    }
+    resultado[c] = suma % 2;
+  }
+  return resultado;
+}
+
 void setup() {
   //inicialización del tarjetero
   initMFRC522();
